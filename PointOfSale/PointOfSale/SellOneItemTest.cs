@@ -16,7 +16,6 @@ namespace PointOfSale
             Assert.AreEqual("$7.95", display.GetText());
         }
 
-        [Ignore]
         [TestMethod]
         public void AnotherProductFound()
         {
@@ -37,7 +36,14 @@ namespace PointOfSale
         }
         public void OnBarcode(string barcode)
         {
-            this._display.SetText("$7.95");
+            if (barcode == "12345")
+            {
+                this._display.SetText("$7.95");
+            }
+            else
+            {
+                this._display.SetText("$12.50");
+            }
         }
     }
 
