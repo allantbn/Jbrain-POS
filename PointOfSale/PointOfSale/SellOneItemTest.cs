@@ -67,11 +67,7 @@ namespace PointOfSale
                 pricesByBarcode.Add("12345", "$7.95");
                 pricesByBarcode.Add("23456", "$12.50");
 
-                if (barcode == "12345")
-                {
-                    this._display.SetText(pricesByBarcode[barcode]);
-                }
-                else if (barcode == "23456")
+                if (pricesByBarcode.ContainsKey(barcode))
                 {
                     this._display.SetText(pricesByBarcode[barcode]);
                 }
