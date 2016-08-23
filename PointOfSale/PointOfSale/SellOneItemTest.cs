@@ -55,7 +55,7 @@ namespace PointOfSale
             }
             else
             {
-                this._display.SetText("Product not found for 9999");
+                this._display.SetText("Product not found for " + barcode);
             }
         }
     }
