@@ -69,11 +69,11 @@ namespace PointOfSale
 
                 if (barcode == "12345")
                 {
-                    this._display.SetText(pricesByBarcode["12345"]);
+                    this._display.SetText(pricesByBarcode[barcode]);
                 }
                 else if (barcode == "23456")
                 {
-                    this._display.SetText(pricesByBarcode["23456"]);
+                    this._display.SetText(pricesByBarcode[barcode]);
                 }
                 else
                 {
