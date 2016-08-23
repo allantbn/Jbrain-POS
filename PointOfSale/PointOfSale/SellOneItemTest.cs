@@ -24,6 +24,15 @@ namespace PointOfSale
             sale.OnBarcode("23456");
             Assert.AreEqual("$12.50", display.GetText());
         }
+
+        [TestMethod]
+        public void ProductNotFound()
+        {
+            Display display = new Display();
+            Sale sale = new Sale(display);
+            sale.OnBarcode("99999");
+            Assert.AreEqual("Product not found for 9999", display.GetText());
+        }
     }
   
     internal class Sale
@@ -40,9 +49,13 @@ namespace PointOfSale
             {
                 this._display.SetText("$7.95");
             }
-            else
+            else if (barcode == "23456")
             {
                 this._display.SetText("$12.50");
+            }
+            else
+            {
+                this._display.SetText("Product not found for 9999");
             }
         }
     }
