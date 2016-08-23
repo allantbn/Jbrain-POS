@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -52,6 +54,7 @@ namespace PointOfSale
         {
             this._display = dislpay;
         }
+
         public void OnBarcode(string barcode)
         {
             if ("".Equals(barcode))
@@ -60,13 +63,17 @@ namespace PointOfSale
             }
             else
             {
+                var pricesByBarcode = new Dictionary<String, String>();
+                pricesByBarcode.Add("12345", "$7.95");
+                pricesByBarcode.Add("23456", "$12.50");
+
                 if (barcode == "12345")
                 {
-                    this._display.SetText("$7.95");
+                    this._display.SetText(pricesByBarcode["12345"]);
                 }
                 else if (barcode == "23456")
                 {
-                    this._display.SetText("$12.50");
+                    this._display.SetText(pricesByBarcode["23456"]);
                 }
                 else
                 {
