@@ -31,7 +31,16 @@ namespace PointOfSale
             Display display = new Display();
             Sale sale = new Sale(display);
             sale.OnBarcode("99999");
-            Assert.AreEqual("Product not found for 9999", display.GetText());
+            Assert.AreEqual("Product not found for 99999", display.GetText());
+        }
+
+        [TestMethod]
+        public void EmtpyBarcode()
+        {
+            Display display = new Display();
+            Sale sale = new Sale(display);
+            sale.OnBarcode("");
+            Assert.AreEqual("Scanning error: empty barcode", display.GetText());
         }
     }
   
@@ -45,18 +54,26 @@ namespace PointOfSale
         }
         public void OnBarcode(string barcode)
         {
-            if (barcode == "12345")
+            if ("".Equals(barcode))
             {
-                this._display.SetText("$7.95");
-            }
-            else if (barcode == "23456")
-            {
-                this._display.SetText("$12.50");
+                this._display.SetText("Scanning error: empty barcode");
             }
             else
             {
-                this._display.SetText("Product not found for " + barcode);
+                if (barcode == "12345")
+                {
+                    this._display.SetText("$7.95");
+                }
+                else if (barcode == "23456")
+                {
+                    this._display.SetText("$12.50");
+                }
+                else
+                {
+                    this._display.SetText("Product not found for " + barcode);
+                }
             }
+            
         }
     }
 
