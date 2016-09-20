@@ -49,10 +49,14 @@ namespace PointOfSale
     internal class Sale
     {
         private readonly Display _display;
+        private Dictionary<string, string> _pricesByBarcode;
 
         public Sale(Display dislpay)
         {
             this._display = dislpay;
+            this._pricesByBarcode = new Dictionary<String, String>();
+            this._pricesByBarcode.Add("12345", "$7.95");
+            this._pricesByBarcode.Add("23456", "$12.50");
         }
 
         public void OnBarcode(string barcode)
@@ -63,13 +67,13 @@ namespace PointOfSale
             }
             else
             {
-                var pricesByBarcode = new Dictionary<String, String>();
-                pricesByBarcode.Add("12345", "$7.95");
-                pricesByBarcode.Add("23456", "$12.50");
+                _pricesByBarcode = new Dictionary<String, String>();
+                _pricesByBarcode.Add("12345", "$7.95");
+                _pricesByBarcode.Add("23456", "$12.50");
 
-                if (pricesByBarcode.ContainsKey(barcode))
+                if (_pricesByBarcode.ContainsKey(barcode))
                 {
-                    this._display.SetText(pricesByBarcode[barcode]);
+                    this._display.SetText(_pricesByBarcode[barcode]);
                 }
                 else
                 {
