@@ -67,10 +67,6 @@ namespace PointOfSale
             }
             else
             {
-                _pricesByBarcode = new Dictionary<String, String>();
-                _pricesByBarcode.Add("12345", "$7.95");
-                _pricesByBarcode.Add("23456", "$12.50");
-
                 if (_pricesByBarcode.ContainsKey(barcode))
                 {
                     this._display.SetText(_pricesByBarcode[barcode]);
