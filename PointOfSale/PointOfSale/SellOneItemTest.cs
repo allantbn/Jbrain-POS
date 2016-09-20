@@ -13,7 +13,11 @@ namespace PointOfSale
         public void ProductFound()
         {
             Display display = new Display();
-            Sale sale = new Sale(display);
+            Sale sale = new Sale(display, new Dictionary<String, String>()
+            {
+                {"12345", "$7.95"},
+                {"23456", "$12.50"}
+            });
             sale.OnBarcode("12345");
             Assert.AreEqual("$7.95", display.GetText());
         }
@@ -22,7 +26,11 @@ namespace PointOfSale
         public void AnotherProductFound()
         {
             Display display = new Display();
-            Sale sale = new Sale(display);
+            Sale sale = new Sale(display, new Dictionary<String, String>()
+            {
+                {"12345", "$7.95"},
+                {"23456", "$12.50"}
+            });
             sale.OnBarcode("23456");
             Assert.AreEqual("$12.50", display.GetText());
         }
@@ -31,7 +39,11 @@ namespace PointOfSale
         public void ProductNotFound()
         {
             Display display = new Display();
-            Sale sale = new Sale(display);
+            Sale sale = new Sale(display, new Dictionary<String, String>()
+            {
+                {"12345", "$7.95"},
+                {"23456", "$12.50"}
+            });
             sale.OnBarcode("99999");
             Assert.AreEqual("Product not found for 99999", display.GetText());
         }
@@ -40,7 +52,11 @@ namespace PointOfSale
         public void EmtpyBarcode()
         {
             Display display = new Display();
-            Sale sale = new Sale(display);
+            Sale sale = new Sale(display, new Dictionary<String, String>()
+            {
+                {"12345", "$7.95"},
+                {"23456", "$12.50"}
+            });
             sale.OnBarcode("");
             Assert.AreEqual("Scanning error: empty barcode", display.GetText());
         }
@@ -49,14 +65,12 @@ namespace PointOfSale
     internal class Sale
     {
         private readonly Display _display;
-        private Dictionary<string, string> _pricesByBarcode;
+        private readonly Dictionary<string, string> _pricesByBarcode;
 
-        public Sale(Display dislpay)
+        public Sale(Display dislpay, Dictionary<string, string> pricesByBarcode)
         {
             this._display = dislpay;
-            this._pricesByBarcode = new Dictionary<String, String>();
-            this._pricesByBarcode.Add("12345", "$7.95");
-            this._pricesByBarcode.Add("23456", "$12.50");
+            this._pricesByBarcode = pricesByBarcode;
         }
 
         public void OnBarcode(string barcode)
