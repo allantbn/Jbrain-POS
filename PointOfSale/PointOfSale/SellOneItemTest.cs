@@ -9,15 +9,23 @@ namespace PointOfSale
     [TestClass]
     public class SellOneItemTest
     {
-        [TestMethod]
-        public void ProductFound()
+        private Display display;
+        private Sale sale;
+
+        [TestInitialize]
+        public void TestInitialize()
         {
-            Display display = new Display();
-            Sale sale = new Sale(display, new Dictionary<String, String>()
+            display = new Display();
+            sale = new Sale(display, new Dictionary<String, String>()
             {
                 {"12345", "$7.95"},
                 {"23456", "$12.50"}
             });
+        }
+
+        [TestMethod]
+        public void ProductFound()
+        {
             sale.OnBarcode("12345");
             Assert.AreEqual("$7.95", display.GetText());
         }
@@ -25,12 +33,6 @@ namespace PointOfSale
         [TestMethod]
         public void AnotherProductFound()
         {
-            Display display = new Display();
-            Sale sale = new Sale(display, new Dictionary<String, String>()
-            {
-                {"12345", "$7.95"},
-                {"23456", "$12.50"}
-            });
             sale.OnBarcode("23456");
             Assert.AreEqual("$12.50", display.GetText());
         }
@@ -38,12 +40,6 @@ namespace PointOfSale
         [TestMethod]
         public void ProductNotFound()
         {
-            Display display = new Display();
-            Sale sale = new Sale(display, new Dictionary<String, String>()
-            {
-                {"12345", "$7.95"},
-                {"23456", "$12.50"}
-            });
             sale.OnBarcode("99999");
             Assert.AreEqual("Product not found for 99999", display.GetText());
         }
@@ -51,7 +47,6 @@ namespace PointOfSale
         [TestMethod]
         public void EmtpyBarcode()
         {
-            Display display = new Display();
             Sale sale = new Sale(display, null);
             sale.OnBarcode("");
             Assert.AreEqual("Scanning error: empty barcode", display.GetText());
