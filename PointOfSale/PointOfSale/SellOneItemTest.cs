@@ -52,7 +52,7 @@ namespace PointOfSale
         public void EmtpyBarcode()
         {
             Display display = new Display();
-            Sale sale = new Sale(display, new Dictionary<String, String>(){});
+            Sale sale = new Sale(display, null);
             sale.OnBarcode("");
             Assert.AreEqual("Scanning error: empty barcode", display.GetText());
         }
