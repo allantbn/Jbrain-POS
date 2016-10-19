@@ -68,19 +68,33 @@ namespace PointOfSale
         {
             if ("".Equals(barcode))
             {
-                this._display.SetText("Scanning error: empty barcode");
+                DisplayEmptyBarCodeMessage();
                 return;
             }
 
             if (_pricesByBarcode.ContainsKey(barcode))
             {
-                this._display.SetText(_pricesByBarcode[barcode]);
+                DisplayPrice(barcode);   
             }
             else
             {
-                this._display.SetText("Product not found for " + barcode);
+                DisplayProductNotFoundMessage(barcode);
             }
-            
+        }
+
+        private void DisplayProductNotFoundMessage(string barcode)
+        {
+            this._display.SetText("Product not found for " + barcode);
+        }
+
+        private void DisplayPrice(string barcode)
+        {
+            this._display.SetText(_pricesByBarcode[barcode]);
+        }
+
+        private void DisplayEmptyBarCodeMessage()
+        {
+            this._display.SetText("Scanning error: empty barcode");
         }
     }
 
