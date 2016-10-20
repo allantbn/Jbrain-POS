@@ -74,7 +74,7 @@ namespace PointOfSale
 
             if (_pricesByBarcode.ContainsKey(barcode))
             {
-                DisplayPrice(barcode);   
+                DisplayePrice(FindPrice(barcode));
             }
             else
             {
@@ -87,9 +87,14 @@ namespace PointOfSale
             this._display.SetText("Product not found for " + barcode);
         }
 
-        private void DisplayPrice(string barcode)
+        private void DisplayePrice(string priceAsText)
         {
-            this._display.SetText(_pricesByBarcode[barcode]);
+            this._display.SetText(priceAsText);
+        }
+
+        private string FindPrice(string barcode)
+        {
+            return _pricesByBarcode[barcode];
         }
 
         private void DisplayEmptyBarCodeMessage()
